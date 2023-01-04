@@ -27,7 +27,16 @@ class AlbumController extends Controller
      */
     public function store(StoreAlbumRequest $request)
     {
-        //
+       try {
+          $Album=Album::create($request->all());
+          return response()->json(
+              ['msg'=>'Album criado com sucesso'],
+          200);
+       } catch (\Throwable $th) {
+        return response()->json(
+            ['error'=>$th->getMessage()],
+        401);
+       }
     }
 
     /**

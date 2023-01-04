@@ -11,11 +11,12 @@ class RegisterController extends Controller
 {
     public function register(Request $request){
         try {
-            $userData=$request->all();
-            $userData=$request['password']=Hash::make($request['password']);
-
-            $user=User::create($userData);
-
+            $userData=([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'password'=>Hash::make($request->password)
+              ]);
+            $user= User::create($userData);
             return response()->json(
                 ['msg'=>'Usuáruio criado com sucesso'],
             200);

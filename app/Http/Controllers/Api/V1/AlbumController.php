@@ -16,7 +16,8 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        //
+        $Album=Album::paginate(10);
+        return response()->json(['data'=>$Album],200);
     }
 
     /**

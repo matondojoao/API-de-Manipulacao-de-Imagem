@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['prefix'=>'album'], function(){
+   Route::get('/',[AlbumController::class,'index'])->name('album.index');
+   Route::post('/',[AlbumController::class,'store'])->name('album.store');
+   Route::get('/{id}',[AlbumController::class,'show'])->name('album.show');
+   Route::delete('/{id}',[AlbumController::class,'destroy'])->name('album.destroy');
+   Route::put('/{id}',[AlbumController::class,'update'])->name('album.update');
 });

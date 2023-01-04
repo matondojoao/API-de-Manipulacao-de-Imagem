@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('path');
             $table->string('type');
-            $table->date('data');
-            $table->string('output_path');
+            $table->date('data')->nullable();
+            $table->string('output_path')->nullable();
             $table->foreignId('album_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

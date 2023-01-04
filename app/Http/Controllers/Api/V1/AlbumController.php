@@ -29,7 +29,10 @@ class AlbumController extends Controller
     public function store(StoreAlbumRequest $request)
     {
        try {
-          $Album=Album::create($request->all());
+          $albumData=$request->all();
+          $albumData=$request['user_id']=Auth('api')->user()->id;
+          $Album=Album::create($albumData);
+
           return response()->json(
               ['msg'=>'Album criado com sucesso'],
           200);

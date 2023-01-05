@@ -28,6 +28,9 @@ class ImageManipulationController extends Controller
     {
         //
     }
+    public function porAlbum(){
+
+    }
 
     /**
      * Display the specified resource.

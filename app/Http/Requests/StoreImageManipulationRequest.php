@@ -24,7 +24,10 @@ class StoreImageManipulationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'image'=>['required'],
+            'w'=>['required','regex:/^\d+(\.\d+)?%?/'],
+            'h'=>'regex:/^\d+(\.\d+)?%?/',
+            'album_id'=>'exists:\App\Models\Album,id'
         ];
     }
 }

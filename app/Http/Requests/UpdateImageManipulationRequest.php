@@ -13,7 +13,7 @@ class UpdateImageManipulationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class UpdateImageManipulationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
+            'path'=>'required',
+            'type'=>'required',
+            'data'=>'required',
+            //'output_path'=>'required',
+            'album_id'=>'required',
         ];
     }
 }

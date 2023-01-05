@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ImageManipulation;
 use App\Http\Requests\StoreImageManipulationRequest;
 use App\Http\Requests\UpdateImageManipulationRequest;
+use App\Models\Album;
 
 class ImageManipulationController extends Controller
 {
@@ -28,7 +29,7 @@ class ImageManipulationController extends Controller
     {
         //
     }
-    public function porAlbum(){
+    public function porAlbum(Album $album){
 
     }
 

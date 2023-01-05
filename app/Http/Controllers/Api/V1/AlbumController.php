@@ -37,9 +37,9 @@ class AlbumController extends Controller
               ['msg'=>'Album criado com sucesso'],
           200);
        } catch (\Throwable $th) {
-        return response()->json(
-            ['error'=>$th->getMessage()],
-        401);
+         return response()->json(
+              ['error'=>$th->getMessage()],
+         401);
        }
     }
 
@@ -51,8 +51,14 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        $album=Album::findOrFail($id);
-        return response()->json(['data'=> $album],200);
+        try {
+            $album=Album::findOrFail($id);
+            return response()->json(['data'=> $album],200);
+         } catch (\Throwable $th) {
+            return response()->json(
+              ['error'=>$th->getMessage()],
+            401);
+         }
     }
 
     /**
@@ -62,9 +68,18 @@ class AlbumController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAlbumRequest $request, Album $album)
+    public function update(UpdateAlbumRequest $request,$id)
     {
-        //
+        try {
+            $album=Album::findOrFail($id)->update($request->all());
+            return response()->json(
+                ['msg'=>'Album atualizado com sucesso'],
+            200);
+         } catch (\Throwable $th) {
+            return response()->json(
+              ['error'=>$th->getMessage()],
+           401);
+         }
     }
 
     /**
@@ -75,9 +90,15 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        $album=Album::findOrFail($id)->delete();
-        return response()->json(
-            ['msg'=>'Album removido com sucesso'],
-        200);
+        try {
+            $album=Album::findOrFail($id)->delete();
+            return response()->json(
+                ['msg'=>'Album removido com sucesso'],
+            200);
+         } catch (\Throwable $th) {
+            return response()->json(
+              ['error'=>$th->getMessage()],
+           401);
+         }
     }
 }

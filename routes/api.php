@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AlbumController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
+use App\Http\Controllers\Api\V1\ImageManipulationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,9 @@ Route::group(['prefix'=>'album'], function(){
    Route::delete('/{album}',[AlbumController::class,'destroy'])->name('album.destroy');
    Route::put('/{album}',[AlbumController::class,'update'])->name('album.update');
 });
+
+Route::group(['prefix'=>'imagem'], function(){
+    Route::get('/',[ImageManipulationController::class,'index'])->name('imagem.index');
+    Route::post('/',[ImageManipulationController::class,'resize'])->name('imagem.resize');
+    Route::get('/{imagem}',[ImageManipulationController::class,'show'])->name('imagem.show');
+ });

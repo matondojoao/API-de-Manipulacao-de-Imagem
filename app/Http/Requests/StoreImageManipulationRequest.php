@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 
 class StoreImageManipulationRequest extends FormRequest
 {
@@ -23,11 +24,18 @@ class StoreImageManipulationRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules= [
             'image'=>['required'],
             'w'=>['required','regex:/^\d+(\.\d+)?%?/'],
             'h'=>'regex:/^\d+(\.\d+)?%?/',
             'album_id'=>'exists:\App\Models\Album,id'
         ];
+        $image=$this->post('image');
+
+        if($image && $image instanceof UploadedFile){
+          $rules['image'][]='image';
+        }else{
+            $rules['image'][]='url';
+        }
     }
 }

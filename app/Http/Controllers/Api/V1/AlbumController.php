@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
+use App\Http\Resources\V1\AlbumResource;
 
 class AlbumController extends Controller
 {
@@ -17,7 +18,7 @@ class AlbumController extends Controller
     public function index()
     {
         $Album=Album::paginate(10);
-        return response()->json(['data'=>$Album],200);
+        return AlbumResource::collection(Album::paginate(10));
     }
 
     /**

@@ -31,16 +31,12 @@ class AlbumController extends Controller
     {
        try {
           $albumData=$request->all();
-          //$albumData=$request['user_id']=Auth('api')->user()->id;
           $Album=Album::create($albumData);
 
-          return response()->json(
-              ['msg'=>'Album criado com sucesso'],
-          200);
+          return response(['msg'=>'Album criado com sucesso'],200);
+
        } catch (\Throwable $th) {
-         return response()->json(
-              ['error'=>$th->getMessage()],
-         401);
+           return response(['error'=>$th->getMessage()],401);
        }
     }
 
@@ -50,9 +46,9 @@ class AlbumController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($album)
     {
-      return new AlbumResource(Album::findOrFail($id));
+      return new AlbumResource(Album::findOrFail($album));
     }
 
     /**
@@ -62,17 +58,14 @@ class AlbumController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAlbumRequest $request,$id)
+    public function update(UpdateAlbumRequest $request,Album $album)
     {
         try {
-            $album=Album::findOrFail($id)->update($request->all());
-            return response()->json(
-                ['msg'=>'Album atualizado com sucesso'],
-            200);
+            $album->update($request->all());
+            return new AlbumResource($album);
+
          } catch (\Throwable $th) {
-            return response()->json(
-              ['error'=>$th->getMessage()],
-           401);
+            return response(['error'=>$th->getMessage()],401);
          }
     }
 
@@ -82,17 +75,14 @@ class AlbumController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Album $album)
     {
         try {
-            $album=Album::findOrFail($id)->delete();
-            return response()->json(
-                ['msg'=>'Album removido com sucesso'],
-            200);
+            $album->delete();
+            return response('Album removido com sucesso',204);
+
          } catch (\Throwable $th) {
-            return response()->json(
-              ['error'=>$th->getMessage()],
-           401);
+            return response(['error'=>$th->getMessage()],401);
          }
     }
 }

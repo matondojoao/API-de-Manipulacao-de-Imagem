@@ -30,7 +30,7 @@ Route::group(['prefix' => 'auth'], function() {
 Route::group(['prefix'=>'album'], function(){
    Route::get('/',[AlbumController::class,'index'])->name('album.index');
    Route::post('/',[AlbumController::class,'store'])->name('album.store');
-   Route::get('/{id}',[AlbumController::class,'show'])->name('album.show');
-   Route::delete('/{id}',[AlbumController::class,'destroy'])->name('album.destroy');
-   Route::put('/{id}',[AlbumController::class,'update'])->name('album.update');
+   Route::get('/{album}',[AlbumController::class,'show'])->name('album.show');
+   Route::delete('/{album}',[AlbumController::class,'destroy'])->name('album.destroy');
+   Route::put('/{album}',[AlbumController::class,'update'])->name('album.update');
 });

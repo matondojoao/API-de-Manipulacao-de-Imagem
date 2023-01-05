@@ -38,6 +38,8 @@ Route::group(['prefix'=>'album'], function(){
 
 Route::group(['prefix'=>'imagem'], function(){
     Route::get('/',[ImageManipulationController::class,'index'])->name('imagem.index');
+    Route::get('/',[ImageManipulationController::class,'show'])->name('imagem.show');
+    Route::get('/por-album/{album}',[ImageManipulationController::class,'porAlbum'])->name('imagem.index');
     Route::post('/',[ImageManipulationController::class,'resize'])->name('imagem.resize');
-    Route::get('/{imagem}',[ImageManipulationController::class,'show'])->name('imagem.show');
+    Route::delete('/{imagem}',[ImageManipulationController::class,'destroy'])->name('imagem.show');
  });

@@ -52,14 +52,7 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        try {
-            $album=Album::findOrFail($id);
-            return response()->json(['data'=> $album],200);
-         } catch (\Throwable $th) {
-            return response()->json(
-              ['error'=>$th->getMessage()],
-            401);
-         }
+      return new AlbumResource(Album::findOrFail($id));
     }
 
     /**

@@ -30,7 +30,7 @@ class AlbumController extends Controller
     {
        try {
           $albumData=$request->all();
-          $albumData=$request['user_id']=Auth('api')->user()->id;
+          //$albumData=$request['user_id']=Auth('api')->user()->id;
           $Album=Album::create($albumData);
 
           return response()->json(

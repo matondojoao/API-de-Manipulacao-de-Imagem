@@ -49,9 +49,10 @@ class AlbumController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function show(Album $album)
+    public function show($id)
     {
-        //
+        $album=Album::findOrFail($id);
+        return response()->json(['data'=> $album],200);
     }
 
     /**
@@ -72,8 +73,11 @@ class AlbumController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Album $album)
+    public function destroy($id)
     {
-        //
+        $album=Album::findOrFail($id)->delete();
+        return response()->json(
+            ['msg'=>'Album removido com sucesso'],
+        200);
     }
 }

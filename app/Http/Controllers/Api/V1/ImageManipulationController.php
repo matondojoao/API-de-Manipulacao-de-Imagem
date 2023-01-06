@@ -7,6 +7,7 @@ use App\Models\ImageManipulation;
 use App\Http\Requests\StoreImageManipulationRequest;
 use App\Http\Requests\UpdateImageManipulationRequest;
 use App\Models\Album;
+use Illuminate\Http\UploadedFile;
 
 class ImageManipulationController extends Controller
 {
@@ -27,7 +28,25 @@ class ImageManipulationController extends Controller
      */
     public function resize(StoreImageManipulationRequest $request)
     {
-        //
+        $all=$request->all();
+
+        $image=$all['image'];
+
+        unset($all['image']);
+
+        $data=[
+            'name',
+            'path'=>ImageManipulation::TYPE_RESIZE,
+            'data'=>json_encode($all),
+            'user_id'=>null,
+        ];
+        if(isset($all['album_id'])){
+
+            $data['album_id']=$all['album_id'];
+        }
+        if($image instanceof UploadedFile){
+            $data['name']=$image->getClientOriginalName();
+        }
     }
     public function porAlbum(Album $album){
 

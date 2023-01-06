@@ -30,12 +30,14 @@ class StoreImageManipulationRequest extends FormRequest
             'h'=>'regex:/^\d+(\.\d+)?%?/',
             'album_id'=>'exists:\App\Models\Album,id'
         ];
-        $image=$this->post('image');
+        $image=$this->all()['image'] ?? false;
 
         if($image && $image instanceof UploadedFile){
           $rules['image'][]='image';
         }else{
             $rules['image'][]='url';
         }
+
+        return $rules;
     }
 }

@@ -24,18 +24,17 @@ class StoreImageManipulationRequest extends FormRequest
      */
     public function rules()
     {
-        $rules= [
-            'image'=>['required'],
-            'w'=>['required','regex:/^\d+(\.\d+)?%?/'],
-            'h'=>'regex:/^\d+(\.\d+)?%?/',
-            'album_id'=>'exists:\App\Models\Album,id'
+        $rules = [
+            'image' => ['required'],
+            'w' => ['required', 'regex:/^\d+(\.\d+)?%?$/'],
+            'h' => 'regex:/^\d+(\.\d+)?%?$/',
+            'album_id' => 'exists:\App\Models\Album,id'
         ];
-        $image=$this->all()['image'] ?? false;
-
-        if($image && $image instanceof UploadedFile){
-          $rules['image'][]='image';
-        }else{
-            $rules['image'][]='url';
+        $all = $this->all();
+        if (isset($all['image']) && $all['image'] instanceof UploadedFile) {
+            $rules['image'][] = 'image';
+        } else {
+            $rules['image'][] = 'url';
         }
 
         return $rules;

@@ -8,6 +8,9 @@ use App\Http\Requests\StoreImageManipulationRequest;
 use App\Http\Requests\UpdateImageManipulationRequest;
 use App\Models\Album;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+
 
 class ImageManipulationController extends Controller
 {
@@ -44,8 +47,16 @@ class ImageManipulationController extends Controller
 
             $data['album_id']=$all['album_id'];
         }
+
+        $dir='images/'.Str::random().'/';
+        $absolutePath=public_path($dir);
+
+        File::makeDirectory($absolutePath);
+
         if($image instanceof UploadedFile){
             $data['name']=$image->getClientOriginalName();
+            $filaname=pathinfo($data['name'], PATHINFO_FILENAME);
+            $extension=$image->getClientOriginalExtension();
         }
     }
     public function porAlbum(Album $album){

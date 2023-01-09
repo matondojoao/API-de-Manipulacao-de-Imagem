@@ -57,6 +57,12 @@ class ImageManipulationController extends Controller
             $data['name']=$image->getClientOriginalName();
             $filaname=pathinfo($data['name'], PATHINFO_FILENAME);
             $extension=$image->getClientOriginalExtension();
+
+            $image->move($absolutePath);
+
+        }
+        else{
+
         }
     }
     public function porAlbum(Album $album){
